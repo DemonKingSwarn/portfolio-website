@@ -1,13 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://dx4cy166fvgqy"]
+[gd_scene load_steps=13 format=3 uid="uid://dx4cy166fvgqy"]
 
 [ext_resource type="PackedScene" uid="uid://cm4nfxedk6a2b" path="res://assets/room/room.fbx" id="1_36trf"]
+[ext_resource type="Texture2D" uid="uid://bcjyd0siultph" path="res://assets/skybox/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_ffxv4"]
+[ext_resource type="Script" uid="uid://bold3ysx1t1uj" path="res://scripts/data_handler.gd" id="1_jn645"]
+[ext_resource type="Script" uid="uid://dunr8bsqxmwj0" path="res://scripts/interaction_manager.gd" id="1_jxe34"]
+[ext_resource type="Script" uid="uid://co1ygurf8y675" path="res://scripts/click.gd" id="2_14vil"]
+[ext_resource type="Script" uid="uid://bu4h4jjykqyr3" path="res://scripts/ui_manager.gd" id="3_7dqbv"]
+[ext_resource type="Script" uid="uid://bnls60cp1n0v4" path="res://scripts/clickable.gd" id="3_85yof"]
+[ext_resource type="FontFile" uid="uid://b6a7o3f22nvys" path="res://assets/fonts/Montserrat-Regular.ttf" id="7_qvc4m"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ffxv4"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_85yof"]
+panorama = ExtResource("1_ffxv4")
 
 [sub_resource type="Sky" id="Sky_85yof"]
-sky_material = SubResource("ProceduralSkyMaterial_ffxv4")
+sky_material = SubResource("PanoramaSkyMaterial_85yof")
 
 [sub_resource type="Environment" id="Environment_14vil"]
 background_mode = 2
@@ -15,7 +21,27 @@ sky = SubResource("Sky_85yof")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ffxv4"]
+size = Vector3(0.5620117, 0.4152832, 1.1162109)
+
 [node name="Room" type="Node3D"]
+
+[node name="data_handler" type="Node" parent="." node_paths=PackedStringArray("langs_text", "tools_text")]
+script = ExtResource("1_jn645")
+langs_text = NodePath("../books_panel/langs")
+tools_text = NodePath("../books_panel/tools")
+metadata/_custom_type_script = "uid://bold3ysx1t1uj"
+
+[node name="interaction_manager" type="Node" parent="." node_paths=PackedStringArray("books_panel", "pc_panel")]
+script = ExtResource("1_jxe34")
+books_panel = NodePath("../books_panel")
+pc_panel = NodePath("../pc_panel")
+metadata/_custom_type_script = "uid://dunr8bsqxmwj0"
+
+[node name="ui_manager" type="Node" parent="." node_paths=PackedStringArray("books_panel", "pc_panel")]
+script = ExtResource("3_7dqbv")
+books_panel = NodePath("../books_panel")
+pc_panel = NodePath("../pc_panel")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -24,8 +50,128 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_14vil")
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.21162264, -0.17205231, 0.9620883, -0.084326506, 0.977498, 0.19335665, -0.9737068, -0.1220482, 0.19235213, -6.2570343, 1.7335997, -3.554642)
+
+[node name="clicker" type="Node3D" parent="Camera3D" node_paths=PackedStringArray("cam")]
+script = ExtResource("2_14vil")
+cam = NodePath("..")
+
 [node name="room" parent="." instance=ExtResource("1_36trf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.80758, 0, -2.1466274)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.21162264, -0.17205231, 0.9620883, -0.084326506, 0.977498, 0.19335666, -0.9737068, -0.1220482, 0.19235213, -4.4439344, 1.7335997, -3.554642)
+[node name="books" type="StaticBody3D" parent="room" groups=["books"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5092211, 2.3939621, -3.1844234)
+script = ExtResource("3_85yof")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room/books"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005493164, 0.124094486, 0.17089844)
+shape = SubResource("BoxShape3D_ffxv4")
+
+[node name="PC2" type="StaticBody3D" parent="room" groups=["PC"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.76369, 1.0928584, -2.4782314)
+script = ExtResource("3_85yof")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="room/PC2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14282227, 0.17438745, 0.052246094)
+shape = SubResource("BoxShape3D_ffxv4")
+
+[node name="pc_panel" type="Panel" parent="."]
+visible = false
+offset_right = 1149.0
+offset_bottom = 658.0
+
+[node name="books_panel" type="Panel" parent="."]
+visible = false
+offset_right = 1160.0
+offset_bottom = 658.0
+
+[node name="aboutText" type="RichTextLabel" parent="books_panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -209.0
+offset_top = 5.0
+offset_right = 469.0
+offset_bottom = 165.0
+grow_horizontal = 2
+scale = Vector2(0.5910975, 0.62180686)
+theme_override_fonts/normal_font = ExtResource("7_qvc4m")
+theme_override_font_sizes/normal_font_size = 128
+text = "About Me"
+
+[node name="aboutText2" type="RichTextLabel" parent="books_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -559.0
+offset_top = -207.0
+offset_right = 1337.4722
+offset_bottom = -97.64128
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5910975, 0.62180686)
+theme_override_fonts/normal_font = ExtResource("7_qvc4m")
+theme_override_font_sizes/normal_font_size = 32
+text = "Hello, I am Swarnaditya, also known as demonkingswarn. I am a game developer and 2D artist. I am a Linux user and enthusiast."
+
+[node name="langs" type="RichTextLabel" parent="books_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -558.0
+offset_top = -137.0
+offset_right = 1338.4722
+offset_bottom = -17.991974
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5910975, 0.62180686)
+theme_override_fonts/normal_font = ExtResource("7_qvc4m")
+theme_override_font_sizes/normal_font_size = 32
+text = "languages: "
+
+[node name="tools" type="RichTextLabel" parent="books_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -557.0
+offset_top = -76.00003
+offset_right = 1339.4722
+offset_bottom = 43.007996
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5910975, 0.62180686)
+theme_override_fonts/normal_font = ExtResource("7_qvc4m")
+theme_override_font_sizes/normal_font_size = 32
+text = "tools:"
+
+[node name="Button" type="Button" parent="books_panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -209.0
+offset_top = -101.0
+offset_right = -16.0
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_qvc4m")
+theme_override_font_sizes/font_size = 64
+text = "BACK
+"
+
+[connection signal="interacted" from="Camera3D/clicker" to="interaction_manager" method="_interaacted"]
+[connection signal="pressed" from="books_panel/Button" to="ui_manager" method="_books_back"]

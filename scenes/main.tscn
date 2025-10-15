@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cd6kwua7hvelt"]
+[gd_scene load_steps=12 format=3 uid="uid://cd6kwua7hvelt"]
 
 [ext_resource type="Texture2D" uid="uid://bcjyd0siultph" path="res://assets/skybox/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dfyqwuwlgyrpf" path="res://assets/casarosa5.fbx" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://d1qghxlkybw7w" path="res://scripts/mouse_zoom.gd" id="2_jyhfs"]
 [ext_resource type="Script" uid="uid://df8qyvlvopc21" path="res://scripts/rot.gd" id="2_sugp2"]
+[ext_resource type="Script" uid="uid://co1ygurf8y675" path="res://scripts/click.gd" id="3_tefeu"]
 [ext_resource type="Script" uid="uid://bnls60cp1n0v4" path="res://scripts/clickable.gd" id="5_tbgi4"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_sugp2"]
@@ -36,6 +37,11 @@ shadow_enabled = true
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9464917, 0.32272828, 0, -0.32272828, 0.9464917, -0.39678764, 6.0302763, 8.86824)
 script = ExtResource("2_jyhfs")
+
+[node name="clicker" type="Node3D" parent="Camera3D" node_paths=PackedStringArray("cam")]
+script = ExtResource("3_tefeu")
+cam = NodePath("..")
+change_scene = true
 
 [node name="scene" type="Node3D" parent="." node_paths=PackedStringArray("cam")]
 script = ExtResource("2_sugp2")
