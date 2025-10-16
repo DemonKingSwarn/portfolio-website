@@ -2,6 +2,8 @@ extends Node
 
 class_name data_handler
 
+signal list_of_games(games_dict: Dictionary)
+
 var lang_and_tools: String = "res://data/languages_and_tools.json"
 var games: String = "res://data/games.json"
 
@@ -54,4 +56,4 @@ func _games() -> void:
 			for game in games_arr:
 				games_dict[game["name"]] = game["url"]
 
-			print(games_dict)
+			emit_signal("list_of_games", games_dict)

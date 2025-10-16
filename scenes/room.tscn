@@ -38,10 +38,13 @@ books_panel = NodePath("../books_panel")
 pc_panel = NodePath("../pc_panel")
 metadata/_custom_type_script = "uid://dunr8bsqxmwj0"
 
-[node name="ui_manager" type="Node" parent="." node_paths=PackedStringArray("books_panel", "pc_panel")]
+[node name="ui_manager" type="Node" parent="." node_paths=PackedStringArray("books_panel", "pc_panel", "game1", "game2", "game3")]
 script = ExtResource("3_7dqbv")
 books_panel = NodePath("../books_panel")
 pc_panel = NodePath("../pc_panel")
+game1 = NodePath("../pc_panel/game1")
+game2 = NodePath("../pc_panel/game2")
+game3 = NodePath("../pc_panel/game3")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -80,6 +83,87 @@ shape = SubResource("BoxShape3D_ffxv4")
 visible = false
 offset_right = 1149.0
 offset_bottom = 658.0
+
+[node name="title" type="RichTextLabel" parent="pc_panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -203.5
+offset_top = 5.0
+offset_right = 474.5
+offset_bottom = 165.0
+grow_horizontal = 2
+scale = Vector2(0.5910975, 0.62180686)
+theme_override_fonts/normal_font = ExtResource("7_qvc4m")
+theme_override_font_sizes/normal_font_size = 128
+text = "My Games"
+
+[node name="Button2" type="Button" parent="pc_panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_top = -101.0
+offset_right = -5.0
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_qvc4m")
+theme_override_font_sizes/font_size = 64
+text = "BACK
+"
+
+[node name="game1" type="Button" parent="pc_panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1100.0
+offset_top = -502.0
+offset_right = -683.0
+offset_bottom = -415.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_qvc4m")
+theme_override_font_sizes/font_size = 64
+
+[node name="game2" type="Button" parent="pc_panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -468.0
+offset_top = -502.0
+offset_right = -51.0
+offset_bottom = -415.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_qvc4m")
+theme_override_font_sizes/font_size = 64
+
+[node name="game3" type="Button" parent="pc_panel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -775.0
+offset_top = -334.0
+offset_right = -358.0
+offset_bottom = -247.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("7_qvc4m")
+theme_override_font_sizes/font_size = 64
 
 [node name="books_panel" type="Panel" parent="."]
 visible = false
@@ -173,5 +257,10 @@ theme_override_font_sizes/font_size = 64
 text = "BACK
 "
 
+[connection signal="list_of_games" from="data_handler" to="ui_manager" method="_get_games"]
 [connection signal="interacted" from="Camera3D/clicker" to="interaction_manager" method="_interaacted"]
+[connection signal="pressed" from="pc_panel/Button2" to="ui_manager" method="_pc_back"]
+[connection signal="pressed" from="pc_panel/game1" to="ui_manager" method="_pc_back"]
+[connection signal="pressed" from="pc_panel/game2" to="ui_manager" method="_pc_back"]
+[connection signal="pressed" from="pc_panel/game3" to="ui_manager" method="_pc_back"]
 [connection signal="pressed" from="books_panel/Button" to="ui_manager" method="_books_back"]

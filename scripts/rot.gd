@@ -22,19 +22,6 @@ func _process(delta) -> void:
 
 		rotation.y += mouse_delta.x * 0.01
 
-		"""
-		var cam_forward = -cam.global_transform.basis.z.normalized()
-		var plane = Plane(cam_forward, global_transform.origin)
-
-		var from = cam.project_ray_origin(mouse_pos)
-		var to = from + cam.project_ray_normal(mouse_pos) * 1000
-		var intersect = plane.intersects_ray(from, to)
-		if intersect != null:
-			var direction = (intersect - global_transform.origin).normalized()
-			var target_pitch = -asin(direction.dot(cam.global_transform.basis.y))
-			rotation.x = clamp(target_pitch, deg_to_rad(-80), deg_to_rad(80))
-		"""
-		
 		last_mouse_pos = mouse_pos
 	
 	else:
