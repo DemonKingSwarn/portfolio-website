@@ -81,8 +81,11 @@ shape = SubResource("BoxShape3D_ffxv4")
 
 [node name="pc_panel" type="Panel" parent="."]
 visible = false
-offset_right = 1149.0
-offset_bottom = 658.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="title" type="RichTextLabel" parent="pc_panel"]
 layout_mode = 1
@@ -119,56 +122,59 @@ text = "BACK
 
 [node name="game1" type="Button" parent="pc_panel"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1100.0
-offset_top = -502.0
-offset_right = -683.0
-offset_bottom = -415.0
-grow_horizontal = 0
-grow_vertical = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -505.0
+offset_top = -186.0
+offset_right = -88.0
+offset_bottom = -99.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("7_qvc4m")
 theme_override_font_sizes/font_size = 64
 
 [node name="game2" type="Button" parent="pc_panel"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -468.0
-offset_top = -502.0
-offset_right = -51.0
-offset_bottom = -415.0
-grow_horizontal = 0
-grow_vertical = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 103.0
+offset_top = -183.0
+offset_right = 520.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("7_qvc4m")
 theme_override_font_sizes/font_size = 64
 
 [node name="game3" type="Button" parent="pc_panel"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -775.0
-offset_top = -334.0
-offset_right = -358.0
-offset_bottom = -247.0
-grow_horizontal = 0
-grow_vertical = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.5
+offset_top = -43.5
+offset_right = 208.5
+offset_bottom = 43.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("7_qvc4m")
 theme_override_font_sizes/font_size = 64
 
 [node name="books_panel" type="Panel" parent="."]
 visible = false
-offset_right = 1160.0
-offset_bottom = 658.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="aboutText" type="RichTextLabel" parent="books_panel"]
 layout_mode = 1

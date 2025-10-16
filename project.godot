@@ -13,11 +13,15 @@ config_version=5
 config/name="portfolio-web"
 run/main_scene="uid://cd6kwua7hvelt"
 config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameManager="*res://scripts/game_manager.gd"
+audio_handler="*res://scripts/audio_manager.gd"
 
 [filesystem]
 
